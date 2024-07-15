@@ -25,7 +25,7 @@ export function EmojiImg({
   onError: () => void;
   className?: string;
 }) {
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const res = useDrag(() => ({
     type: 'Emoji',
     item: { unified },
     collect: monitor => ({
@@ -35,7 +35,7 @@ export function EmojiImg({
 
   return (
     <img
-      ref={drag}
+      ref={res[1]}
       src={imgUrl}
       alt={emojiName}
       className={cx(
