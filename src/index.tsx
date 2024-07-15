@@ -8,6 +8,10 @@ import {
   useDefineMutableConfig
 } from './config/mutableConfig';
 
+export {
+  useDrop as useEmojiDrop,
+  DndProvider as EmojiDndProvider
+} from 'react-dnd';
 export { ExportedEmoji as Emoji } from './components/emoji/ExportedEmoji';
 
 export {
@@ -26,7 +30,7 @@ export default function EmojiPicker(props: PickerProps) {
   const MutableConfigRef = useDefineMutableConfig({
     onEmojiClick: props.onEmojiClick,
     onReactionClick: props.onReactionClick,
-    onSkinToneChange: props.onSkinToneChange,
+    onSkinToneChange: props.onSkinToneChange
   });
 
   return (
