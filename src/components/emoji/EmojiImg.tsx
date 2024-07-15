@@ -1,5 +1,6 @@
 import { cx } from 'flairup';
 import * as React from 'react';
+import { useDrag } from 'react-dnd';
 
 import { stylesheet } from '../../Stylesheet/stylesheet';
 import { EmojiStyle } from '../../types/exposedTypes';
@@ -7,6 +8,7 @@ import { EmojiStyle } from '../../types/exposedTypes';
 import { emojiStyles } from './emojiStyles';
 
 export function EmojiImg({
+  unified,
   emojiName,
   style,
   lazyLoad = false,
@@ -14,19 +16,34 @@ export function EmojiImg({
   onError,
   className
 }: {
+  unified?: string;
   emojiName: string;
   emojiStyle: EmojiStyle;
   style: React.CSSProperties;
   lazyLoad?: boolean;
   imgUrl: string;
-    onError: () => void;
+  onError: () => void;
   className?: string;
 }) {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'Emoji',
+    item: { unified },
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging()
+    })
+  }));
+
   return (
     <img
+      ref={drag}
       src={imgUrl}
       alt={emojiName}
-      className={cx(styles.emojiImag, emojiStyles.external, emojiStyles.common, className)}
+      className={cx(
+        styles.emojiImag,
+        emojiStyles.external,
+        emojiStyles.common,
+        className
+      )}
       loading={lazyLoad ? 'lazy' : 'eager'}
       onError={onError}
       style={style}

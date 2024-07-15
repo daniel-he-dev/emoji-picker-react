@@ -55,6 +55,7 @@ export function ViewOnlyEmoji({
         <NativeEmoji unified={unified} style={style} className={className} />
       ) : (
         <EmojiImg
+          unified={unified}
           style={style}
           emojiName={emojiName(emojiToRender)}
           emojiStyle={emojiStyle}
